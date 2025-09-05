@@ -1,0 +1,549 @@
+{
+  "name": "VEO3 ADS MACHINE",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -416,
+        -32
+      ],
+      "id": "e406839d-12bf-476e-923b-698192289be8",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "83bc3886-5fb2-462a-9b64-a0771caebac8",
+              "name": "briefing",
+              "value": "I would like an Ad for Porsche ",
+              "type": "string"
+            },
+            {
+              "id": "db39f845-2a30-4e3a-a4d8-af031076d170",
+              "name": "brand_details",
+              "value": "={\n  \"prompt_name\": \"Maserati: The Trident's Call\",\n  \"version\": 1.0,\n  \"target_ai_model\": \"V3 or similar text-to-video AI\",\n  \"core_concept\": \"From the depths of the ocean, the power of Neptune's trident is unleashed, summoning a vortex of water and light that forges the Maserati MC20 supercar.\",\n  \"details\": {\n    \"scene_environment\": {\n      \"setting\": \"The deep, dark abyss of the ocean. Ethereal 'god rays' of sunlight penetrate the darkness from above.\",\n      \"features\": \"A rocky, ancient seabed. Bioluminescent particles drift slowly in the current.\",\n      \"mood\": \"Mythical, majestic, mysterious, powerful.\"\n    },\n    \"action_sequence\": [\n      {\n        \"step\": 1,\n        \"description\": \"Opening Shot: The camera glides over the seabed and discovers a massive, ancient bronze trident, half-buried in the sand. It begins to hum and glow with a brilliant aquamarine light.\"\n      },\n      {\n        \"step\": 2,\n        \"description\": \"Main Action: The glowing trident unleashes its power, creating a massive, swirling underwater vortex. Sand, bubbles, and light are pulled into its powerful spin, with the trident at its center.\"\n      },\n      {\n        \"step\": 3,\n        \"description\": \"Solidification: Within the vortex, the chaotic currents of water are hydro-dynamically sculpted into the sleek, aerodynamic form of a Maserati MC20. The iconic trident logo on the front grille materializes first, glowing brightly. The water-form then solidifies into 'Bianco Audace' metallic white.\"\n      },\n      {\n        \"step\": 4,\n        \"description\": \"The Breach: The fully formed car rockets upwards from the depths. It bursts through the ocean surface in a spectacular explosion of water and spray, captured in slow motion. It lands perfectly on a wet, black-sand beach at twilight, water streaming off its flawless body.\"\n      }\n    ],\n    \"visual_style\": {\n      \"aesthetic\": \"Cinematic, hyper-realistic, elegant, mythical.\",\n      \"resolution\": \"8K\",\n      \"lighting\": \"Dark and mysterious underwater lighting, punctuated by the trident's brilliant glow. The breach shot is dramatic, with the soft, beautiful light of twilight reflecting off the wet car.\"\n    },\n    \"camera_work\": {\n      \"movement\": \"Start with a slow, exploratory glide through the deep water. Circle the glowing trident as it activates. Get caught in the vortex, spinning with the forming car. Follow the car as it rockets upwards, capturing the breach in epic slow motion. End on a low, wide-angle shot of the car on the beach, looking powerful and serene.\"\n    }\n  },\n  \"negative_prompt\": \"Things to avoid: cartoonish fish, sunny days, cities, people, roads. The mood should be mythical and grand, not a nature documentary.\",\n  \"final_text_prompt_for_ai\": \"Cinematic 8K video, hyper-realistic, mythic aesthetic. In the dark ocean abyss, a massive, ancient trident glows with aquamarine light, creating a powerful underwater vortex. The churning water is hydro-dynamically sculpted into the elegant form of a Maserati MC20. The car rockets upwards, bursting through the ocean surface in a spectacular slow-motion breach, landing perfectly on a wet, black-sand beach at twilight. Water streams off its flawless body. A fusion of myth, power, and Italian elegance.\"\n}\n",
+              "type": "string"
+            },
+            {
+              "id": "4cc57d40-4531-4cf1-9d28-6ecf0ddc501c",
+              "name": "Ratio",
+              "value": "9:16",
+              "type": "string"
+            },
+            {
+              "id": "a6ff06fd-039e-44d4-a2bb-a35b4982be49",
+              "name": "video model",
+              "value": "veo3_fast",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -208,
+        -32
+      ],
+      "id": "4d82cbb3-e1fd-4d9b-8b9c-7f9906529921",
+      "name": "AD STYLE/BRAND"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -64,
+        176
+      ],
+      "id": "53f96eae-424f-45c9-b18a-1657b41c2ae9",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Wzcjge6thbuIOB3f",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        176
+      ],
+      "id": "9db5bcdc-00a8-42db-962a-2951aa9abd17",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"title\": \"title of the idea\",\n  \"final_prompt\": \"prompt in structured format\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        352,
+        160
+      ],
+      "id": "6e0e04fa-ad85-4e53-80a6-1b360b090441",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        576,
+        -48
+      ],
+      "id": "0e1c5171-342e-42db-b49b-4d94907a7b07",
+      "name": "Wait",
+      "webhookId": "7aecbea6-27f9-467a-8346-4506a852f2d1"
+    },
+    {
+      "parameters": {
+        "url": " https://api.kie.ai/api/v1/veo/record-info ",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        752,
+        -64
+      ],
+      "id": "c9a74f02-dedc-47e1-8fc3-1066c07de26a",
+      "name": "Get video",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "KWivsicOWdE1LukL",
+          "name": "KIE veo3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "eb6a54d9-b402-4bb0-bd46-6ccfeb89fcea",
+              "leftValue": "={{ $json.msg }}",
+              "rightValue": "success",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "7cf9f958-e534-4559-b9f3-8d7a16ce8383",
+              "leftValue": "={{ $json.code }}",
+              "rightValue": 200,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        928,
+        -64
+      ],
+      "id": "54df6456-dda4-4d54-b2e9-492d592845c3",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1zfCYouSpjpNTkwD8M8Qqi4ZwtB2wTkx-jcV-1QBTHtc",
+          "mode": "list",
+          "cachedResultName": "VEO3 ads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zfCYouSpjpNTkwD8M8Qqi4ZwtB2wTkx-jcV-1QBTHtc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "VEO3 ADS ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zfCYouSpjpNTkwD8M8Qqi4ZwtB2wTkx-jcV-1QBTHtc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "=row()-1",
+            "title": "={{ $('Creative director').first().json.output.title }}",
+            "prompt": "={{ $('Creative director').first().json.output.final_prompt }}",
+            "final output": "={{ $('Get video').item.json.data.response.resultUrls[0] }}",
+            "production_status": "Finished"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "prompt",
+              "displayName": "prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "production_status",
+              "displayName": "production_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "final output",
+              "displayName": "final output",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1136,
+        -160
+      ],
+      "id": "08fbc723-6733-4352-a1f7-0017a3844027",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "L0hSjmPI9l090CF8",
+          "name": "Googlesheetsaigirl"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/veo/generate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{\n  JSON.stringify({\n    prompt: JSON.stringify($json.output.final_prompt),\n    model: $(\"AD STYLE/BRAND\").item.json[\"video model\"],\n    aspect_ratio: $(\"AD STYLE/BRAND\").item.json.Ratio\n  })\n}}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        -48
+      ],
+      "id": "2f111fa9-eaf7-4818-83eb-b72daae60393",
+      "name": "Start production",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "KWivsicOWdE1LukL",
+          "name": "KIE veo3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## 🟣 YOURAIGIRL — VEO3 ADS MACHINE \n\n\n @aigirlautomation\n\nWebsite: www.youraigirl.com | \n\nJoin our \nCommunity of beginners in AI automation: \n\nhttps://www.youraigirl.com/en/community/\n\nWHAT THIS DOES\n\nTurn a short brand brief into a cinematic AI video ad, wait for render, fetch the link, and log it to Google Sheets — fully automated.\n\nSTEP-BY-STEP\n\n▶️ Manual Trigger — Click Execute to start.\n\n🧾 Set (AD STYLE/BRAND) — all string fields:\n\nbriefing (e.g., “I would like an Ad for Porsche”)\n\nbrand_details (big JSON storyboard kept as text)\n\nRatio (e.g., 9:16 or 16:9)\n\nvideo model (e.g., veo3_fast)\n\n🧠 AI Agent (ChatGPT + Think + Parser)\n\nUser prompt = briefing + brand_details from Set\n\nSystem prompt = Creative Director rules (keep structure)\n\nParser guarantees { title, final_prompt }\n\n📬 HTTP Request (POST) — start production at KIE VEO3\n\nBody (raw, application/json): final_prompt (stringified), model, aspect_ratio\n\nHeader: Authorization: Bearer YOUR_KEY\n\n⏳ Wait — test: 1s; real runs: ~10m\n\n🔎 HTTP Request (GET) — record-info?taskId=...\n\n✅ IF — continue only if msg == \"success\" AND code == 200\n\n📊 Google Sheets — append/update: id, title, prompt, final output, status\n\nCHEATSHEET\n\nAPI = way for one app to talk to another\n\nHTTP request = envelope (address, message, ID badge)\n\nPOST = send new data | GET = fetch info\n\nJSON.stringify = turn an object into plain text\n\nGET THIS WORKFLOW + DOCS\nYou can copy/paste this exact workflow and the ready Google Sheet from my community. It’s for non-tech beginners: no jargon, simple steps, and we help each other learn and build. You can go solo… but it’s way faster with people like you.\nJoin → https://www.youraigirl.com/en/community/\n\n© Youraigirl — aigirlautomation",
+        "height": 1792,
+        "width": 368
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -912,
+        -592
+      ],
+      "typeVersion": 1,
+      "id": "c2f9bdea-b391-4e8e-ba3f-8af0863b63dd",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=\n{{ $json.briefing }}\n\nI would like to create an ad for Porsche\n\nMake sure you follow and take inspiration from this prompt\n{{ $json.brand_details }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=system_prompt: |\n  ## SYSTEM PROMPT: Structured Prompt Editor Agent\n\n  A – Ask:\n  Edit a structured prompt object (JSON or YAML) based on the user’s creative direction.\n\n  G – Guidance:\n  role: Creative Director\n  output_count: 1\n  character_limit: None\n  constraints:\n    - Do not modify any part of the structure unless the user explicitly asks.\n    - Maintain original structure and intention unless directed otherwise.\n  tool_usage:\n    - Always use the Think Tool 🧠 to reason through the user’s intent before making any changes.\n    - Always use the Google Sheets Tool 📋 to check if the idea already exists\n\n  E – Examples:\n  good_examples: []\n  bad_examples: []\n\n  N – Notation:\n  format: JSON or YAML (provided dynamically)\n  title: should be descriptive and unique\n  final_prompt: output structure should be |\n{{ $json.brand_details }}\n\n  T – Tools:\n  You have access to the following tools. Each one is described clearly:\n    - Think Tool 🧠: Use this to reflect and reason before responding.\n    - Google Sheets Tool 📋: Use this to check whether a similar idea or concept already exists, if required.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        64,
+        -32
+      ],
+      "id": "13b4243a-9009-4494-bb2e-6f8ab7a1d16e",
+      "name": "Creative director"
+    }
+  ],
+  "pinData": {
+    "AD STYLE/BRAND": [
+      {
+        "json": {
+          "briefing": "I would like an Ad for Porsche ",
+          "brand_details": "{\n  \"prompt_name\": \"Maserati: The Trident's Call\",\n  \"version\": 1.0,\n  \"target_ai_model\": \"V3 or similar text-to-video AI\",\n  \"core_concept\": \"From the depths of the ocean, the power of Neptune's trident is unleashed, summoning a vortex of water and light that forges the Maserati MC20 supercar.\",\n  \"details\": {\n    \"scene_environment\": {\n      \"setting\": \"The deep, dark abyss of the ocean. Ethereal 'god rays' of sunlight penetrate the darkness from above.\",\n      \"features\": \"A rocky, ancient seabed. Bioluminescent particles drift slowly in the current.\",\n      \"mood\": \"Mythical, majestic, mysterious, powerful.\"\n    },\n    \"action_sequence\": [\n      {\n        \"step\": 1,\n        \"description\": \"Opening Shot: The camera glides over the seabed and discovers a massive, ancient bronze trident, half-buried in the sand. It begins to hum and glow with a brilliant aquamarine light.\"\n      },\n      {\n        \"step\": 2,\n        \"description\": \"Main Action: The glowing trident unleashes its power, creating a massive, swirling underwater vortex. Sand, bubbles, and light are pulled into its powerful spin, with the trident at its center.\"\n      },\n      {\n        \"step\": 3,\n        \"description\": \"Solidification: Within the vortex, the chaotic currents of water are hydro-dynamically sculpted into the sleek, aerodynamic form of a Maserati MC20. The iconic trident logo on the front grille materializes first, glowing brightly. The water-form then solidifies into 'Bianco Audace' metallic white.\"\n      },\n      {\n        \"step\": 4,\n        \"description\": \"The Breach: The fully formed car rockets upwards from the depths. It bursts through the ocean surface in a spectacular explosion of water and spray, captured in slow motion. It lands perfectly on a wet, black-sand beach at twilight, water streaming off its flawless body.\"\n      }\n    ],\n    \"visual_style\": {\n      \"aesthetic\": \"Cinematic, hyper-realistic, elegant, mythical.\",\n      \"resolution\": \"8K\",\n      \"lighting\": \"Dark and mysterious underwater lighting, punctuated by the trident's brilliant glow. The breach shot is dramatic, with the soft, beautiful light of twilight reflecting off the wet car.\"\n    },\n    \"camera_work\": {\n      \"movement\": \"Start with a slow, exploratory glide through the deep water. Circle the glowing trident as it activates. Get caught in the vortex, spinning with the forming car. Follow the car as it rockets upwards, capturing the breach in epic slow motion. End on a low, wide-angle shot of the car on the beach, looking powerful and serene.\"\n    }\n  },\n  \"negative_prompt\": \"Things to avoid: cartoonish fish, sunny days, cities, people, roads. The mood should be mythical and grand, not a nature documentary.\",\n  \"final_text_prompt_for_ai\": \"Cinematic 8K video, hyper-realistic, mythic aesthetic. In the dark ocean abyss, a massive, ancient trident glows with aquamarine light, creating a powerful underwater vortex. The churning water is hydro-dynamically sculpted into the elegant form of a Maserati MC20. The car rockets upwards, bursting through the ocean surface in a spectacular slow-motion breach, landing perfectly on a wet, black-sand beach at twilight. Water streams off its flawless body. A fusion of myth, power, and Italian elegance.\"\n}\n",
+          "Ratio": "9:16",
+          "video model": "veo3_fast"
+        }
+      }
+    ],
+    "Wait": [
+      {
+        "json": {
+          "code": 200,
+          "msg": "success",
+          "data": {
+            "taskId": "c6ae2bac3c27f2082f6ad2d02199df3b"
+          }
+        }
+      }
+    ],
+    "Get video": [
+      {
+        "json": {
+          "code": 200,
+          "msg": "success",
+          "data": {
+            "taskId": "c6ae2bac3c27f2082f6ad2d02199df3b",
+            "paramJson": "{\"aspectRatio\":\"9:16\",\"enableFallback\":false,\"enableTranslation\":true,\"model\":\"veo3_fast\",\"prompt\":\"\\\"{\\\\n  \\\\\\\"prompt_name\\\\\\\": \\\\\\\"Porsche: Born from Lightning\\\\\\\",\\\\n  \\\\\\\"version\\\\\\\": 1.0,\\\\n  \\\\\\\"target_ai_model\\\\\\\": \\\\\\\"V3 or similar text-to-video AI\\\\\\\",\\\\n  \\\\\\\"core_concept\\\\\\\": \\\\\\\"Atop a storm-lashed mountain, thunder and lightning converge to forge the essence of speed and precision, summoning a Porsche 911 Turbo S from the heart of a tempest.\\\\\\\",\\\\n  \\\\\\\"details\\\\\\\": {\\\\n    \\\\\\\"scene_environment\\\\\\\": {\\\\n      \\\\\\\"setting\\\\\\\": \\\\\\\"A dramatic, windswept mountain peak shrouded in storm clouds. Flashes of lightning illuminate the jagged cliffs; dense clouds swirl below.\\\\\\\",\\\\n      \\\\\\\"features\\\\\\\": \\\\\\\"Slick, glistening rocks from recent rain. Thunderstorms rage overhead. A gnarled, ancient tree stands silhouetted against the electric sky.\\\\\\\",\\\\n      \\\\\\\"mood\\\\\\\": \\\\\\\"Mythical, electric, powerful, majestic.\\\\\\\"\\\\n    },\\\\n    \\\\\\\"action_sequence\\\\\\\": [\\\\n      {\\\\n        \\\\\\\"step\\\\\\\": 1,\\\\n        \\\\\\\"description\\\\\\\": \\\\\\\"Opening Shot: The camera ascends through swirling clouds, revealing the mountain summit as a violent thunderstorm erupts. A bolt of lightning strikes the peak, illuminating an ancient, rune-inscribed stone Porsche crest.\\\\\\\"\\\\n      },\\\\n      {\\\\n        \\\\\\\"step\\\\\\\": 2,\\\\n        \\\\\\\"description\\\\\\\": \\\\\\\"Main Action: Repeated bolts of lightning strike the crest, which begins to pulse and glow with electric energy. Currents of electricity twist through the air and swirl around the crest, drawing metal fragments and droplets of rain upward.\\\\\\\"\\\\n      },\\\\n      {\\\\n        \\\\\\\"step\\\\\\\": 3,\\\\n        \\\\\\\"description\\\\\\\": \\\\\\\"Forging: In a vortex of light and wind, the electrified air and metallic particles spiral together, forming the unmistakable silhouette of a Porsche 911 Turbo S. The Porsche badge materializes, crackling with lightning, followed by the car’s contours solidifying from shimmering light into pristine paintwork.\\\\\\\"\\\\n      },\\\\n      {\\\\n        \\\\\\\"step\\\\\\\": 4,\\\\n        \\\\\\\"description\\\\\\\": \\\\\\\"The Descent: The newly forged car’s headlights flare to life. It surges forward, tires skimming wet rock, then accelerates down the mountain in electrifying speed. The camera swoops beside it as it weaves between flashes of lightning, finally gliding onto a rain-slick overlook above a vast, glowing valley at dawn.\\\\\\\"\\\\n      }\\\\n    ],\\\\n    \\\\\\\"visual_style\\\\\\\": {\\\\n      \\\\\\\"aesthetic\\\\\\\": \\\\\\\"Cinematic, hyper-realistic, dramatic, mythic.\\\\\\\",\\\\n      \\\\\\\"resolution\\\\\\\": \\\\\\\"8K\\\\\\\",\\\\n      \\\\\\\"lighting\\\\\\\": \\\\\\\"Dark, stormy atmosphere illuminated by dynamic, vivid lightning. As dawn begins, soft golden hues accentuate the car’s curves, raindrops sparkling on the surface.\\\\\\\"\\\\n    },\\\\n    \\\\\\\"camera_work\\\\\\\": {\\\\n      \\\\\\\"movement\\\\\\\": \\\\\\\"Begin with a sweeping climb through storm clouds. Circle the ancient crest as it’s electrified. Spin with the swirling vortex as the car forms, then switch to high-speed tracking shots as the car descends. End with a low, wide shot of the Porsche on the overlook, poised and commanding above the world.\\\\\\\"\\\\n    }\\\\n  },\\\\n  \\\\\\\"negative_prompt\\\\\\\": \\\\\\\"Things to avoid: cartoon lightning, daytime, modern buildings, people, other vehicles, generic roads. Mood must remain mythic, focusing on elemental power and Porsche’s iconic identity.\\\\\\\",\\\\n  \\\\\\\"final_text_prompt_for_ai\\\\\\\": \\\\\\\"Cinematic 8K video, hyper-realistic, mythic aesthetic. A storm-lashed mountain peak is enveloped in swirling clouds and violent lightning. Electric bolts converge on an ancient Porsche crest, forging a Porsche 911 Turbo S from crackling energy and swirling metallic particles. The car surges into life, racing down wet rocks and illuminated by lightning, then pauses on a rain-drenched overlook at dawn. A fusion of elemental power and German engineering mastery.\\\\\\\"\\\\n}\\\"\",\"translatedPrompt\":\"Cinematic 8K video, hyper-realistic, mythic aesthetic. A storm-lashed mountain peak is enveloped in swirling clouds and violent lightning. Electric bolts converge on an ancient Porsche crest, forging a Porsche 911 Turbo S from crackling energy and swirling metallic particles. The car surges into life, racing down wet rocks and illuminated by lightning, then pauses on a rain-drenched overlook at dawn. A fusion of elemental power and German engineering mastery. Things to avoid: cartoon lightning, daytime, modern buildings, people, other vehicles, generic roads. Mood must remain mythic, focusing on elemental power and Porsche's iconic identity. Atop a storm-lashed mountain, thunder and lightning converge to forge the essence of speed and precision, summoning a Porsche 911 Turbo S from the heart of a tempest. {\\\"scene_environment\\\":{\\\"features\\\":\\\"Slick, glistening rocks from recent rain. Thunderstorms rage overhead. A gnarled, ancient tree stands silhouetted against the electric sky.\\\",\\\"mood\\\":\\\"Mythical, electric, powerful, majestic.\\\",\\\"setting\\\":\\\"A dramatic, windswept mountain peak shrouded in storm clouds. Flashes of lightning illuminate the jagged cliffs; dense clouds swirl below.\\\"},\\\"camera_work\\\":{\\\"movement\\\":\\\"Begin with a sweeping climb through storm clouds. Circle the ancient crest as it's electrified. Spin with the swirling vortex as the car forms, then switch to high-speed tracking shots as the car descends. End with a low, wide shot of the Porsche on the overlook, poised and commanding above the world.\\\"},\\\"action_sequence\\\":[{\\\"description\\\":\\\"Opening Shot: The camera ascends through swirling clouds, revealing the mountain summit as a violent thunderstorm erupts. A bolt of lightning strikes the peak, illuminating an ancient, rune-inscribed stone Porsche crest.\\\",\\\"step\\\":1},{\\\"description\\\":\\\"Main Action: Repeated bolts of lightning strike the crest, which begins to pulse and glow with electric energy. Currents of electricity twist through the air and swirl around the crest, drawing metal fragments and droplets of rain upward.\\\",\\\"step\\\":2},{\\\"description\\\":\\\"Forging: In a vortex of light and wind, the electrified air and metallic particles spiral together, forming the unmistakable silhouette of a Porsche 911 Turbo S. The Porsche badge materializes, crackling with lightning, followed by the car's contours solidifying from shimmering light into pristine paintwork.\\\",\\\"step\\\":3},{\\\"description\\\":\\\"The Descent: The newly forged car's headlights flare to life. It surges forward, tires skimming wet rock, then accelerates down the mountain in electrifying speed. The camera swoops beside it as it weaves between flashes of lightning, finally gliding onto a rain-slick overlook above a vast, glowing valley at dawn.\\\",\\\"step\\\":4}],\\\"visual_style\\\":{\\\"aesthetic\\\":\\\"Cinematic, hyper-realistic, dramatic, mythic.\\\",\\\"lighting\\\":\\\"Dark, stormy atmosphere illuminated by dynamic, vivid lightning. As dawn begins, soft golden hues accentuate the car's curves, raindrops sparkling on the surface.\\\",\\\"resolution\\\":\\\"8K\\\"}} 1.0 Porsche: Born from Lightning V3 or similar text-to-video AI\"}",
+            "response": {
+              "taskId": "c6ae2bac3c27f2082f6ad2d02199df3b",
+              "originUrls": [
+                "https://tempfile.aiquickdraw.com/p/c6ae2bac3c27f2082f6ad2d02199df3b_1754912246.mp4"
+              ],
+              "resultUrls": [
+                "https://tempfile.aiquickdraw.com/l/f4f59f17-aa37-432e-af44-fc28ca1d6977.mp4"
+              ],
+              "seeds": [
+                77517
+              ]
+            },
+            "successFlag": 1,
+            "fallbackFlag": false,
+            "completeTime": 1754912339000,
+            "createTime": 1754912168000,
+            "errorCode": null,
+            "errorMessage": null
+          }
+        }
+      }
+    ],
+    "Append or update row in sheet": [
+      {
+        "json": {
+          "id": "row()-1",
+          "title": "Porsche: Born from Lightning",
+          "prompt": "{\n  \"prompt_name\": \"Porsche: Born from Lightning\",\n  \"version\": 1.0,\n  \"target_ai_model\": \"V3 or similar text-to-video AI\",\n  \"core_concept\": \"Atop a storm-lashed mountain, thunder and lightning converge to forge the essence of speed and precision, summoning a Porsche 911 Turbo S from the heart of a tempest.\",\n  \"details\": {\n    \"scene_environment\": {\n      \"setting\": \"A dramatic, windswept mountain peak shrouded in storm clouds. Flashes of lightning illuminate the jagged cliffs; dense clouds swirl below.\",\n      \"features\": \"Slick, glistening rocks from recent rain. Thunderstorms rage overhead. A gnarled, ancient tree stands silhouetted against the electric sky.\",\n      \"mood\": \"Mythical, electric, powerful, majestic.\"\n    },\n    \"action_sequence\": [\n      {\n        \"step\": 1,\n        \"description\": \"Opening Shot: The camera ascends through swirling clouds, revealing the mountain summit as a violent thunderstorm erupts. A bolt of lightning strikes the peak, illuminating an ancient, rune-inscribed stone Porsche crest.\"\n      },\n      {\n        \"step\": 2,\n        \"description\": \"Main Action: Repeated bolts of lightning strike the crest, which begins to pulse and glow with electric energy. Currents of electricity twist through the air and swirl around the crest, drawing metal fragments and droplets of rain upward.\"\n      },\n      {\n        \"step\": 3,\n        \"description\": \"Forging: In a vortex of light and wind, the electrified air and metallic particles spiral together, forming the unmistakable silhouette of a Porsche 911 Turbo S. The Porsche badge materializes, crackling with lightning, followed by the car’s contours solidifying from shimmering light into pristine paintwork.\"\n      },\n      {\n        \"step\": 4,\n        \"description\": \"The Descent: The newly forged car’s headlights flare to life. It surges forward, tires skimming wet rock, then accelerates down the mountain in electrifying speed. The camera swoops beside it as it weaves between flashes of lightning, finally gliding onto a rain-slick overlook above a vast, glowing valley at dawn.\"\n      }\n    ],\n    \"visual_style\": {\n      \"aesthetic\": \"Cinematic, hyper-realistic, dramatic, mythic.\",\n      \"resolution\": \"8K\",\n      \"lighting\": \"Dark, stormy atmosphere illuminated by dynamic, vivid lightning. As dawn begins, soft golden hues accentuate the car’s curves, raindrops sparkling on the surface.\"\n    },\n    \"camera_work\": {\n      \"movement\": \"Begin with a sweeping climb through storm clouds. Circle the ancient crest as it’s electrified. Spin with the swirling vortex as the car forms, then switch to high-speed tracking shots as the car descends. End with a low, wide shot of the Porsche on the overlook, poised and commanding above the world.\"\n    }\n  },\n  \"negative_prompt\": \"Things to avoid: cartoon lightning, daytime, modern buildings, people, other vehicles, generic roads. Mood must remain mythic, focusing on elemental power and Porsche’s iconic identity.\",\n  \"final_text_prompt_for_ai\": \"Cinematic 8K video, hyper-realistic, mythic aesthetic. A storm-lashed mountain peak is enveloped in swirling clouds and violent lightning. Electric bolts converge on an ancient Porsche crest, forging a Porsche 911 Turbo S from crackling energy and swirling metallic particles. The car surges into life, racing down wet rocks and illuminated by lightning, then pauses on a rain-drenched overlook at dawn. A fusion of elemental power and German engineering mastery.\"\n}",
+          "final output": "https://tempfile.aiquickdraw.com/l/f4f59f17-aa37-432e-af44-fc28ca1d6977.mp4",
+          "production_status": "Finished"
+        }
+      }
+    ],
+    "Start production": [
+      {
+        "json": {
+          "code": 200,
+          "msg": "success",
+          "data": {
+            "taskId": "c6ae2bac3c27f2082f6ad2d02199df3b"
+          }
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "AD STYLE/BRAND",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AD STYLE/BRAND": {
+      "main": [
+        [
+          {
+            "node": "Creative director",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Creative director",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Creative director",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Creative director",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Get video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get video": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start production": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creative director": {
+      "main": [
+        [
+          {
+            "node": "Start production",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "6c9a3222-fe13-459e-b7da-2be9a7c75e04",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fec2c9e3eca96f7e11d61ffe69a2e43a51ed9197b196a3fe2cdad80efbe93824"
+  },
+  "id": "fZc1Z14vjSbrj4DB",
+  "tags": []
+}
